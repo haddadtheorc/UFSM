@@ -22,11 +22,10 @@ std::vector<Bmp*> imageVector;
 Bmp *img, *img2, *img3;
 Filter *color_filter;
 unsigned char *data;
-
-int image_point_mod = 0;
+int image_rotation_mod = 0;
 int image_scale_mod = 0;
 int image_print_mod = 0;
-int current_image = 1;
+int current_image = 0;
 
 
 
@@ -38,14 +37,9 @@ void show_image_pixel_color(int cont){
     CV::color(color_filter->r, color_filter->g, color_filter->b);
 }
 
+//POSIÇÃO DO PRÓXIMO PIXEL A SER PRINTADO -> o point_mod e scale_mod aplicam transformação de tamanho ou orientação
 void show_image_pixel_point(int j, int i, Bmp* image){
-    if(image_point_mod==360)
-        image_point_mod = 0;
-    if(image_point_mod<0){
-        image_point_mod = 270;
-    }
-
-    switch (image_point_mod){
+    switch (image_rotation_mod){
         case 0:
             CV::point(mouseX - (image->getWidth()/2)/image_scale_mod + j, mouseY - (image->getHeight()/2)/image_scale_mod + i); //p printar a img no centro da tela
         break;
@@ -64,11 +58,11 @@ void show_image_pixel_point(int j, int i, Bmp* image){
     }
 }
 
+//IMPRESSÃO DE IMAGEM NA TELA -> recebe a imagem como argumento e chama suas funções auxiliares
 void show_image(Bmp* image){
 
     data = image->getImage();
 
-    //aqui faz os tratamentos dos modificadores para printar a imagem na escala desejada
     if(image_print_mod == 0){
         image_scale_mod = 1;
     }
@@ -100,19 +94,23 @@ void render(){
 void keyboard(int key){
     printf("\nPressinou tecla: %d" , key);
 
-
     switch(key){
-
         case 27:
             exit(0);
 
-        //tratamento de girar a imagem +- 90: seta p/ esquerda e seta p/ direita
+        //ROTAÇÃO DA IMAGEM
         case 200:
-            image_point_mod -=90;
+            image_rotation_mod -=90;
+            if(image_rotation_mod<0)
+                image_rotation_mod = 270;
         break;
         case 202:
-            image_point_mod +=90;
+            image_rotation_mod +=90;
+            if(image_rotation_mod==360)
+                image_rotation_mod = 0;
         break;
+
+        //ESCALA DA IMAGEM
         case 201:
             if(image_print_mod >= 1){
                 image_print_mod --;
