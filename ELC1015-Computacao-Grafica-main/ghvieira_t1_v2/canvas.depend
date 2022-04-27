@@ -284,17 +284,17 @@
 
 1646253594 e:\semestre\computação gráfica\material\demos\ghvieira_t1_v2\src\vector2.h
 
-1651092440 source:e:\semestre\computação gráfica\material\demos\ghvieira_t1_v2\src\main.cpp
+1651084139 source:e:\semestre\computação gráfica\material\demos\ghvieira_t1_v2\src\main.cpp
 	<math.h>
 	<stdio.h>
 	<stdlib.h>
+	<vector>
 	<GL/glut.h>
 	<GL/freeglut_ext.h>
 	"gl_canvas2d.h"
 	"Bmp.h"
 	"Widget.h"
 	"Filter.h"
-	<vector>
 
 1650974215 e:\semestre\computação gráfica\material\demos\ghvieira_t1_v2\src\bmp.h
 	<stdio.h>

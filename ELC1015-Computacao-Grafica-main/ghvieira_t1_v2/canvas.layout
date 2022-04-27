@@ -2,7 +2,17 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Release" />
-	<File name="src\Bmp.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src\Vector2.h" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="95" topLine="28" />
+		</Cursor>
+	</File>
+	<File name="src\gl_canvas2d.cpp" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1308" topLine="42" />
+		</Cursor>
+	</File>
+	<File name="src\Bmp.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="1652" topLine="21" />
 		</Cursor>
@@ -18,37 +28,38 @@
 			<Collapse line="48" />
 		</Folding>
 	</File>
-	<File name="src\bmp.cpp" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src\bmp.cpp" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="830" topLine="41" />
+			<Cursor1 position="289" topLine="0" />
 		</Cursor>
-	</File>
-	<File name="src\main.cpp" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="4414" topLine="76" />
-		</Cursor>
-		<Folding>
-			<Collapse line="35" />
-			<Collapse line="59" />
-			<Collapse line="86" />
-			<Collapse line="121" />
-			<Collapse line="210" />
-			<Collapse line="215" />
-		</Folding>
 	</File>
 	<File name="src\gl_canvas2d.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="370" topLine="38" />
 		</Cursor>
 	</File>
-	<File name="src\gl_canvas2d.cpp" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src\Filter.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1308" topLine="42" />
+			<Cursor1 position="214" topLine="0" />
 		</Cursor>
+		<Folding>
+			<Collapse line="22" />
+			<Collapse line="25" />
+			<Collapse line="28" />
+			<Collapse line="31" />
+			<Collapse line="36" />
+		</Folding>
 	</File>
-	<File name="src\Vector2.h" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src\main.cpp" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="95" topLine="28" />
+			<Cursor1 position="4924" topLine="102" />
 		</Cursor>
+		<Folding>
+			<Collapse line="31" />
+			<Collapse line="49" />
+			<Collapse line="58" />
+			<Collapse line="82" />
+			<Collapse line="112" />
+		</Folding>
 	</File>
 </CodeBlocks_layout_file>

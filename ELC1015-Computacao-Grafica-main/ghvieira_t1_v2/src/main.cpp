@@ -1,64 +1,82 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <vector>
+
 #include <GL/glut.h>
 #include <GL/freeglut_ext.h>
+
 #include "gl_canvas2d.h"
 #include "Bmp.h"
 #include "Widget.h"
 #include "Filter.h"
 
-#include <vector>
 
 
 //TELA
-int screenWidth = 1000, screenHeight = 1000;
-
+int screenWidth, screenHeight = 1000;
 //MOUSE
 int mouseX, mouseY;
 
-
+//IMAGENS
 std::vector<Bmp*> imageVector;
 Bmp *img, *img2, *img3;
 Filter *color_filter;
 unsigned char *data;
-int image_rotation_mod = 0;
-int image_scale_mod = 0;
-int image_print_mod = 0;
-int current_image = 0;
+int image_rotation_mod, image_scale_mod, image_print_mod, current_image = 0;
 
 
 
+//CRIA E CARREGA IMAGENS
+//-> agrupa num vetor de imagens
+void loadImages(){
+    img = new Bmp(".\\ghvieira_t1_v2\\resources\\haddad.bmp");
+    img->convertBGRtoRGB();
+    imageVector.push_back(img);
+
+    img2 = new Bmp(".\\ghvieira_t1_v2\\resources\\normal_1.bmp");
+    img2->convertBGRtoRGB();
+    imageVector.push_back(img2);
+
+    img3 = new Bmp(".\\ghvieira_t1_v2\\resources\\img1.bmp");
+    img3->convertBGRtoRGB();
+    imageVector.push_back(img3);
+}
 
 
-//COR DO PRÓXIMO PIXEL A SER PINTADO -> o color_filter aplica qualquer transformação necessária no RBG
+
+//COR DO PRï¿½XIMO PIXEL A SER PINTADO
+//-> o color_filter aplica qualquer transformaï¿½ï¿½o necessï¿½ria no RBG
 void show_image_pixel_color(int cont){
     color_filter->filter(data[cont]/255.0, data[cont+1]/255.0, data[cont+2]/255.0);
     CV::color(color_filter->r, color_filter->g, color_filter->b);
 }
 
-//POSIÇÃO DO PRÓXIMO PIXEL A SER PRINTADO -> o point_mod e scale_mod aplicam transformação de tamanho ou orientação
+
+
+//POSIï¿½ï¿½O DO PRï¿½XIMO PIXEL A SER PRINTADO
+//-> o point_mod e scale_mod aplicam transformaï¿½ï¿½o de tamanho ou orientaï¿½ï¿½o
 void show_image_pixel_point(int j, int i, Bmp* image){
     switch (image_rotation_mod){
         case 0:
-            CV::point(mouseX - (image->getWidth()/2)/image_scale_mod + j, mouseY - (image->getHeight()/2)/image_scale_mod + i); //p printar a img no centro da tela
+            CV::point(mouseX - (image->getWidth()/2)/image_scale_mod + j, mouseY - (image->getHeight()/2)/image_scale_mod + i);
         break;
-
         case 90:
-            CV::point(mouseX - (image->getWidth()/2)/image_scale_mod + i, mouseY + (image->getHeight()/2)/image_scale_mod - j); //p printar a img no centro da tela
+            CV::point(mouseX - (image->getWidth()/2)/image_scale_mod + i, mouseY + (image->getHeight()/2)/image_scale_mod - j);
         break;
-
         case 180:
-            CV::point(mouseX + (image->getWidth()/2)/image_scale_mod - j, mouseY + (image->getHeight()/2)/image_scale_mod - i); //p printar a img no centro da tela
+            CV::point(mouseX + (image->getWidth()/2)/image_scale_mod - j, mouseY + (image->getHeight()/2)/image_scale_mod - i);
         break;
-
         case 270:
-            CV::point(mouseX + (image->getWidth()/2)/image_scale_mod - i, mouseY - (image->getHeight()/2)/image_scale_mod + j); //p printar a img no centro da tela
+            CV::point(mouseX + (image->getWidth()/2)/image_scale_mod - i, mouseY - (image->getHeight()/2)/image_scale_mod + j);
         break;
     }
 }
 
-//IMPRESSÃO DE IMAGEM NA TELA -> recebe a imagem como argumento e chama suas funções auxiliares
+
+
+//IMPRESSAO DE IMAGEM NA TELA
+//-> recebe a imagem como argumento e chama suas funï¿½ï¿½es auxiliares
 void show_image(Bmp* image){
 
     data = image->getImage();
@@ -86,11 +104,17 @@ void show_image(Bmp* image){
     }
 }
 
+
+
+//FUNCAO PRINCIPAL DE RENDER
 void render(){
     CV::clear(0,0,0);
     show_image(imageVector[current_image]);
 }
 
+
+
+//TECLADO - pressionado
 void keyboard(int key){
     printf("\nPressinou tecla: %d" , key);
 
@@ -98,7 +122,7 @@ void keyboard(int key){
         case 27:
             exit(0);
 
-        //ROTAÇÃO DA IMAGEM
+        //ROTACAO DA IMAGEM
         case 200:
             image_rotation_mod -=90;
             if(image_rotation_mod<0)
@@ -134,54 +158,46 @@ void keyboard(int key){
         break;
 
         //TOGGLE DOS EFEITOS DE COR
-        //canal vermelho
         case 114:
+            //canal vermelho (R)
             color_filter->r_channel = !color_filter->r_channel;
         break;
-        //canal verde
         case 103:
+            //canal verde (G)
             color_filter->g_channel = !color_filter->g_channel;
         break;
-        //canal azul
         case 98:
+            //canal azul (B)
             color_filter->b_channel = !color_filter->b_channel;
         break;
-        //escala de cinza
         case 120:
+            //escala de cinza (X)
             color_filter->grayscale = !color_filter->grayscale;
         break;
-        //cor invertida
         case 122:
-            color_filter->reverse_rgb = !color_filter->reverse_rgb;
+            //cor invertida (Z)
+            color_fil ter->reverse_rgb = !color_filter->reverse_rgb;
         break;
     }
 }
 
+//TECLADO - solto
 void keyboardUp(int key){
     printf("\nLiberou tecla: %d" , key);
 }
 
+//MOUSE
 void mouse(int button, int state, int wheel, int direction, int x, int y){
     mouseX = x;
     mouseY = y;
     printf("\nmouse %d %d %d %d %d %d", button, state, wheel, direction,  x, y);
 }
 
+
 int main(void){
-
+    printf("lel");
     color_filter = new Filter();
-
-    img = new Bmp(".\\ghvieira_t1_v2\\resources\\haddad.bmp");
-    img->convertBGRtoRGB();
-    img2 = new Bmp(".\\ghvieira_t1_v2\\resources\\normal_1.bmp");
-    img2->convertBGRtoRGB();
-    img3 = new Bmp(".\\ghvieira_t1_v2\\resources\\img1.bmp");
-    img3->convertBGRtoRGB();
-
-    imageVector.push_back(img);
-    imageVector.push_back(img2);
-    imageVector.push_back(img3);
-
-    CV::init(&screenWidth, &screenHeight, "Trabalho 1 – Visualizador de Imagens e API de widgets");
+    loadImages();
+    CV::init(&screenWidth, &screenHeight, "Trabalho 1 ï¿½ Manipulaï¿½ï¿½o de imagens");
     CV::run();
 }
