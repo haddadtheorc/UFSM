@@ -8,6 +8,8 @@
 #include "Widget.h"
 #include "Filter.h"
 
+#include <vector>
+
 
 //TELA
 int screenWidth = 1000, screenHeight = 1000;
@@ -16,15 +18,14 @@ int screenWidth = 1000, screenHeight = 1000;
 int mouseX, mouseY;
 
 
-unsigned char *data; //armazena o array com as infos da img para printar
-
-Bmp *img, *img2; //armazena a img a ser manipulada
+std::vector<Bmp*> imageVector;
+Bmp *img, *img2, *img3;
 Filter *color_filter;
+unsigned char *data;
 
-int image_point_mod = 0;    //modificador da posicao do pixel.
+int image_point_mod = 0;
 int image_scale_mod = 0;
 int image_print_mod = 0;
-
 int current_image = 1;
 
 
@@ -37,8 +38,7 @@ void show_image_pixel_color(int cont){
     CV::color(color_filter->r, color_filter->g, color_filter->b);
 }
 
-//função para controlar a posição do próximo pixel a ser printado, dependendo do modificador(orientação) o CV::point é diferente
-void show_image_pixel_point(int j, int i){
+void show_image_pixel_point(int j, int i, Bmp* image){
     if(image_point_mod==360)
         image_point_mod = 0;
     if(image_point_mod<0){
@@ -47,24 +47,23 @@ void show_image_pixel_point(int j, int i){
 
     switch (image_point_mod){
         case 0:
-            CV::point(mouseX - (img->getWidth()/2)/image_scale_mod + j, mouseY - (img->getHeight()/2)/image_scale_mod + i); //p printar a img no centro da tela
+            CV::point(mouseX - (image->getWidth()/2)/image_scale_mod + j, mouseY - (image->getHeight()/2)/image_scale_mod + i); //p printar a img no centro da tela
         break;
 
         case 90:
-            CV::point(mouseX - (img->getWidth()/2)/image_scale_mod + i, mouseY + (img->getHeight()/2)/image_scale_mod - j); //p printar a img no centro da tela
+            CV::point(mouseX - (image->getWidth()/2)/image_scale_mod + i, mouseY + (image->getHeight()/2)/image_scale_mod - j); //p printar a img no centro da tela
         break;
 
         case 180:
-            CV::point(mouseX + (img->getWidth()/2)/image_scale_mod - j, mouseY + (img->getHeight()/2)/image_scale_mod - i); //p printar a img no centro da tela
+            CV::point(mouseX + (image->getWidth()/2)/image_scale_mod - j, mouseY + (image->getHeight()/2)/image_scale_mod - i); //p printar a img no centro da tela
         break;
 
         case 270:
-            CV::point(mouseX + (img->getWidth()/2)/image_scale_mod - i, mouseY - (img->getHeight()/2)/image_scale_mod + j); //p printar a img no centro da tela
+            CV::point(mouseX + (image->getWidth()/2)/image_scale_mod - i, mouseY - (image->getHeight()/2)/image_scale_mod + j); //p printar a img no centro da tela
         break;
     }
 }
 
-//função para mostrar uma imagem na tela, cria um laço para percorrer todo o array da imagem e chama as funcoes auxiliares
 void show_image(Bmp* image){
 
     data = image->getImage();
@@ -84,7 +83,7 @@ void show_image(Bmp* image){
     for(int i = 0; i < image->getHeight()/image_scale_mod; i++){
         for(int j = 0; j < image->getWidth()/image_scale_mod; j++){
             show_image_pixel_color(cont);
-            show_image_pixel_point(j, i);
+            show_image_pixel_point(j, i, image);
             cont += 3 * pow(2,image_print_mod);
         }
         if(image_print_mod!=0){
@@ -93,25 +92,11 @@ void show_image(Bmp* image){
     }
 }
 
-
-
-
-
-
-
-
-
-//a render mais enxuta possível, chamando as funções para mostrar a imagem, textos, widgets e os desenhos na tela
 void render(){
     CV::clear(0,0,0);
-    if(current_image==1)
-        show_image(img);
-    else{
-        show_image(img2);
-    }
+    show_image(imageVector[current_image]);
 }
 
-//tratamento do teclado
 void keyboard(int key){
     printf("\nPressinou tecla: %d" , key);
 
@@ -139,16 +124,16 @@ void keyboard(int key){
             }
         break;
 
-        //tratamento de filtrar um canal de cor: r(vermelho) g(verde) b(azul) x(cinza) z(invertido) d(default)
-        case 100:
-
+        //TOGGLE DA IMAGEM ATUAL
+        case 49:
+            current_image = 0;
         break;
-
-
         case 50:
+            current_image = 1;
+        break;
+        case 51:
             current_image = 2;
         break;
-
 
         //TOGGLE DOS EFEITOS DE COR
         //canal vermelho
@@ -163,10 +148,11 @@ void keyboard(int key){
         case 98:
             color_filter->b_channel = !color_filter->b_channel;
         break;
-        //grayscale
+        //escala de cinza
         case 120:
             color_filter->grayscale = !color_filter->grayscale;
         break;
+        //cor invertida
         case 122:
             color_filter->reverse_rgb = !color_filter->reverse_rgb;
         break;
@@ -177,13 +163,11 @@ void keyboardUp(int key){
     printf("\nLiberou tecla: %d" , key);
 }
 
-//tratamento do mouse
 void mouse(int button, int state, int wheel, int direction, int x, int y){
     mouseX = x;
     mouseY = y;
     printf("\nmouse %d %d %d %d %d %d", button, state, wheel, direction,  x, y);
 }
-
 
 int main(void){
 
@@ -193,6 +177,12 @@ int main(void){
     img->convertBGRtoRGB();
     img2 = new Bmp(".\\ghvieira_t1_v2\\resources\\normal_1.bmp");
     img2->convertBGRtoRGB();
+    img3 = new Bmp(".\\ghvieira_t1_v2\\resources\\img1.bmp");
+    img3->convertBGRtoRGB();
+
+    imageVector.push_back(img);
+    imageVector.push_back(img2);
+    imageVector.push_back(img3);
 
     CV::init(&screenWidth, &screenHeight, "Trabalho 1 – Visualizador de Imagens e API de widgets");
     CV::run();
