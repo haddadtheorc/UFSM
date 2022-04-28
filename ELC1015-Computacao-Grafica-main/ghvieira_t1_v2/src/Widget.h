@@ -7,9 +7,9 @@ class Checkbox{
 public:
     float altura, largura, x, y, r, g, b;
     bool check = false;
-    char mod;
+    char id;
 
-    Checkbox(float _x, float _y, float _larg, float _alt, float _r, float _g, float _b, char _mod){
+    Checkbox(float _x, float _y, float _larg, float _alt, float _r, float _g, float _b, char _id){
         altura  = _alt;
         largura = _larg;
         x = _x;
@@ -17,7 +17,7 @@ public:
         r = _r;
         g = _g;
         b = _b;
-        mod = _mod;
+        id = _id;
     }
 
     void Render(){
@@ -28,7 +28,6 @@ public:
         }
         CV::color(r, g, b);
         CV::rect(x, y, x + largura, y + altura);
-
     }
 
     bool Colidiu(int mx, int my){

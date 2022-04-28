@@ -6,12 +6,16 @@
 class Filter{
 public:
     float r, g, b;
+    int rotation_mod, scale_mod, print_mod;
     bool r_channel = true, g_channel = true, b_channel = true, grayscale = false, reverse_rgb = false;
 
     Filter(){
         r = 0.0;
         g = 0.0;
         b = 0.0;
+        rotation_mod = 0;
+        scale_mod = 0;
+        print_mod = 0;
     }
 
     void filter(float _r, float _g, float _b){

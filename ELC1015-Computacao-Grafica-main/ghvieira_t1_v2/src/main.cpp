@@ -2,121 +2,65 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <vector>
-
 #include <GL/glut.h>
 #include <GL/freeglut_ext.h>
-
 #include "gl_canvas2d.h"
 #include "Bmp.h"
 #include "Widget.h"
 #include "Filter.h"
-
-
+#include "Image.h"
+#define CHECKBOX_MAX 5
 
 //TELA
-int screenWidth, screenHeight = 1000;
+int screenWidth = 750, screenHeight = 750;
 //MOUSE
 int mouseX, mouseY;
-
 //IMAGENS
-std::vector<Bmp*> imageVector;
-Bmp *img, *img2, *img3;
-Filter *color_filter;
-unsigned char *data;
-int image_rotation_mod, image_scale_mod, image_print_mod, current_image = 0;
+std::vector<Image*> imgVector;
+//WIDGETS
+std::vector<Checkbox*> checkboxVector;
+//AUXILIARES
+int current_image = 0;
 
 
-
-//CRIA E CARREGA IMAGENS
-//-> agrupa num vetor de imagens
-void loadImages(){
-    img = new Bmp(".\\ghvieira_t1_v2\\resources\\haddad.bmp");
-    img->convertBGRtoRGB();
-    imageVector.push_back(img);
-
-    img2 = new Bmp(".\\ghvieira_t1_v2\\resources\\normal_1.bmp");
-    img2->convertBGRtoRGB();
-    imageVector.push_back(img2);
-
-    img3 = new Bmp(".\\ghvieira_t1_v2\\resources\\img1.bmp");
-    img3->convertBGRtoRGB();
-    imageVector.push_back(img3);
-}
-
-
-
-//COR DO PR�XIMO PIXEL A SER PINTADO
-//-> o color_filter aplica qualquer transforma��o necess�ria no RBG
-void show_image_pixel_color(int cont){
-    color_filter->filter(data[cont]/255.0, data[cont+1]/255.0, data[cont+2]/255.0);
-    CV::color(color_filter->r, color_filter->g, color_filter->b);
-}
-
-
-
-//POSI��O DO PR�XIMO PIXEL A SER PRINTADO
-//-> o point_mod e scale_mod aplicam transforma��o de tamanho ou orienta��o
-void show_image_pixel_point(int j, int i, Bmp* image){
-    switch (image_rotation_mod){
-        case 0:
-            CV::point(mouseX - (image->getWidth()/2)/image_scale_mod + j, mouseY - (image->getHeight()/2)/image_scale_mod + i);
-        break;
-        case 90:
-            CV::point(mouseX - (image->getWidth()/2)/image_scale_mod + i, mouseY + (image->getHeight()/2)/image_scale_mod - j);
-        break;
-        case 180:
-            CV::point(mouseX + (image->getWidth()/2)/image_scale_mod - j, mouseY + (image->getHeight()/2)/image_scale_mod - i);
-        break;
-        case 270:
-            CV::point(mouseX + (image->getWidth()/2)/image_scale_mod - i, mouseY - (image->getHeight()/2)/image_scale_mod + j);
-        break;
+// VERIFICANDO ATIVIDADE COM WIGETS
+void widget_check(char _id){
+    for(int i = 0; i < checkboxVector.size(); i++){
+        if(checkboxVector[i]->id == _id)
+            checkboxVector[i]->check = !checkboxVector[i]->check;
     }
 }
 
-
-
-//IMPRESSAO DE IMAGEM NA TELA
-//-> recebe a imagem como argumento e chama suas fun��es auxiliares
-void show_image(Bmp* image){
-
-    data = image->getImage();
-
-    if(image_print_mod == 0){
-        image_scale_mod = 1;
-    }
-    else if(image_print_mod == 1){
-        image_scale_mod = 2;
-    }
-    else if(image_print_mod == 2){
-        image_scale_mod = 4;
+// RENDERIZACAO DAS CHECKBOXES
+void show_widget_checkbox(){
+    for(int i = 0; i < checkboxVector.size(); i++){
+        checkboxVector[i]->Render();
     }
 
-    int cont = 0;
-    for(int i = 0; i < image->getHeight()/image_scale_mod; i++){
-        for(int j = 0; j < image->getWidth()/image_scale_mod; j++){
-            show_image_pixel_color(cont);
-            show_image_pixel_point(j, i, image);
-            cont += 3 * pow(2,image_print_mod);
-        }
-        if(image_print_mod!=0){
-            cont += image->getWidth() * pow(3,image_print_mod);
-        }
-    }
 }
 
 
+// RENDERIZAÇÃO DOS WIDGETS NA TELA
+// -> percorre o vetor de widgets renderizando cada um
+void show_widgets(){
+    show_widget_checkbox();
+}
 
-//FUNCAO PRINCIPAL DE RENDER
+// RENDERIZAÇÃO DAS IMAGENS NA TELA
+void show_images(){
+    imgVector[current_image]->showImage(mouseX, mouseY, current_image);
+}
+
+// FUNCAO PRINCIPAL DE RENDER
 void render(){
     CV::clear(0,0,0);
-    show_image(imageVector[current_image]);
+    show_images();
+    show_widgets();
 }
 
-
-
-//TECLADO - pressionado
+// TECLADO - pressionado
 void keyboard(int key){
-    printf("\nPressinou tecla: %d" , key);
+    //printf("\nPressinou tecla: %d" , key);
 
     switch(key){
         case 27:
@@ -124,25 +68,25 @@ void keyboard(int key){
 
         //ROTACAO DA IMAGEM
         case 200:
-            image_rotation_mod -=90;
-            if(image_rotation_mod<0)
-                image_rotation_mod = 270;
+            imgVector[current_image]->filter->rotation_mod -=90;
+            if(imgVector[current_image]->filter->rotation_mod<0)
+                imgVector[current_image]->filter->rotation_mod = 270;
         break;
         case 202:
-            image_rotation_mod +=90;
-            if(image_rotation_mod==360)
-                image_rotation_mod = 0;
+            imgVector[current_image]->filter->rotation_mod +=90;
+            if(imgVector[current_image]->filter->rotation_mod==360)
+                imgVector[current_image]->filter->rotation_mod = 0;
         break;
 
         //ESCALA DA IMAGEM
         case 201:
-            if(image_print_mod >= 1){
-                image_print_mod --;
+            if(imgVector[current_image]->filter->print_mod >= 1){
+                imgVector[current_image]->filter->print_mod --;
             }
         break;
         case 203:
-            if(image_print_mod <= 1){
-                image_print_mod ++;
+            if(imgVector[current_image]->filter->print_mod <= 1){
+                imgVector[current_image]->filter->print_mod ++;
             }
         break;
 
@@ -160,44 +104,62 @@ void keyboard(int key){
         //TOGGLE DOS EFEITOS DE COR
         case 114:
             //canal vermelho (R)
-            color_filter->r_channel = !color_filter->r_channel;
+            imgVector[current_image]->filter->r_channel = !imgVector[current_image]->filter->r_channel;
+            widget_check('R');
         break;
         case 103:
             //canal verde (G)
-            color_filter->g_channel = !color_filter->g_channel;
+            imgVector[current_image]->filter->g_channel = !imgVector[current_image]->filter->g_channel;
+            widget_check('G');
         break;
         case 98:
             //canal azul (B)
-            color_filter->b_channel = !color_filter->b_channel;
+            imgVector[current_image]->filter->b_channel = !imgVector[current_image]->filter->b_channel;
+            widget_check('B');
         break;
         case 120:
             //escala de cinza (X)
-            color_filter->grayscale = !color_filter->grayscale;
+            imgVector[current_image]->filter->grayscale = !imgVector[current_image]->filter->grayscale;
+            widget_check('X');
         break;
         case 122:
             //cor invertida (Z)
-            color_fil ter->reverse_rgb = !color_filter->reverse_rgb;
+            imgVector[current_image]->filter->reverse_rgb = !imgVector[current_image]->filter->reverse_rgb;
+            widget_check('Z');
         break;
     }
 }
 
-//TECLADO - solto
+// TECLADO - solto
 void keyboardUp(int key){
-    printf("\nLiberou tecla: %d" , key);
+    //printf("\nLiberou tecla: %d" , key);
 }
 
 //MOUSE
 void mouse(int button, int state, int wheel, int direction, int x, int y){
+    //printf("\nmouse %d %d %d %d %d %d", button, state, wheel, direction,  x, y);
     mouseX = x;
     mouseY = y;
-    printf("\nmouse %d %d %d %d %d %d", button, state, wheel, direction,  x, y);
 }
 
 
+// CRIA E INICIALIZA IMAGENS E WIDGETS
+// -> vetores de imagens e widgets
+void initialize(){
+
+    imgVector.push_back(new Image(".\\ghvieira_t1_v2\\resources\\haddad.bmp"));
+    imgVector.push_back(new Image(".\\ghvieira_t1_v2\\resources\\normal_1.bmp"));
+    imgVector.push_back(new Image(".\\ghvieira_t1_v2\\resources\\img1.bmp"));
+
+    checkboxVector.push_back(new Checkbox(60, screenHeight-50, 15, 15, 1, 0, 0, 'R'));
+    checkboxVector.push_back(new Checkbox(90, screenHeight-50, 15, 15, 0, 1, 0, 'G'));
+    checkboxVector.push_back(new Checkbox(120, screenHeight-50, 15, 15, 0, 0, 1, 'B'));
+    checkboxVector.push_back(new Checkbox(150, screenHeight-50, 15, 15, 1, 1, 1, 'X'));
+    checkboxVector.push_back(new Checkbox(180, screenHeight-50, 15, 15, 0.5, 0, 0.5, 'Z'));
+}
+
 int main(void){
-    printf("lel");
-    color_filter = new Filter();
-    loadImages();
-    CV::init(&screenWidth, &screenHeight, "Trabalho 1 � Manipula��o de imagens");
+    initialize();
+    CV::init(&screenWidth, &screenHeight, "Trabalho 1 - Manipulacaoo de imagens");
     CV::run();
 }

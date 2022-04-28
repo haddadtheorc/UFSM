@@ -31,7 +31,7 @@ typedef struct {
 
 
 class Bmp{
-private:
+public:
     int width, height, imagesize, bytesPerLine, bits;
     unsigned char *data;
 
