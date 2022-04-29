@@ -42,8 +42,9 @@ class Button{
     public:
         float altura, largura, x, y, r, g, b;
         int mod;
+        char id;
 
-        Button(float _x, float _y, float _larg, float _alt, int _r, int _g, int _b){
+        Button(float _x, float _y, float _larg, float _alt, int _r, int _g, int _b, char _id){
          altura  = _alt;
          largura = _larg;
          x = _x;
@@ -51,6 +52,7 @@ class Button{
          r = _r;
          g = _g;
          b = _b;
+         id = _id;
 
       }
 
@@ -81,14 +83,14 @@ class Widget{
             checkboxVector.push_back(new Checkbox(150, screenHeight-50, screenWidth*0.02, screenHeight*0.02, 0.5, 0.5, 0.5, 'X'));
             checkboxVector.push_back(new Checkbox(180, screenHeight-50, screenWidth*0.02, screenHeight*0.02, 1, 0, 1, 'Z'));
             //BUTTONS (LEFT, RIGHT)
-            buttonVector.push_back(new Button(100, 100, screenHeight*0.07 , screenWidth*0.07, 1, 1, 1));
-            buttonVector.push_back(new Button(screenWidth-100-screenWidth*0.07, 100, screenHeight*0.07 , screenWidth*0.07, 1, 1, 1));
+            buttonVector.push_back(new Button(100, 100, screenHeight*0.07 , screenWidth*0.07, 1, 1, 1, 'A'));
+            buttonVector.push_back(new Button(screenWidth-100-screenWidth*0.07, 100, screenHeight*0.07 , screenWidth*0.07, 1, 1, 1, 'D'));
         }
 
     char collide(int mx, int my){
         for(int i = 0; i < buttonVector.size(); i ++){
             if(buttonVector[i]->collide(mx, my)){
-                printf("BATEU");
+                return (buttonVector[i]->id);
             }
         }
         for(int i = 0; i < checkboxVector.size(); i ++){

@@ -13,14 +13,15 @@ class Image{
         unsigned char *data;
         float x = 0.0, y = 0.0;
 
-        Image(const char *fileName){
+        Image(const char *fileName, float _x, float _y){
             img = new Bmp(fileName);
             img->convertBGRtoRGB();
             filter = new Filter();
             data = img->getImage();
+            x = _x;
+            y = _y;
         }
 
-        // IMPRESSAO DE IMAGEM NA TELA
         void showImage(int mouseX, int mouseY, bool current_image){
             if(filter->print_mod == 0){
                 filter->scale_mod = 1;
@@ -48,15 +49,11 @@ class Image{
             }
         }
 
-        // COR DO PROXIMO PIXEL A SER PINTADO
-        // -> o filter aplica qualquer transformacao necesseria no RBG
         void showImagePixelColor(int cont){
             filter->filter(data[cont]/255.0, data[cont+1]/255.0, data[cont+2]/255.0);
             CV::color(filter->r, filter->g, filter->b);
         }
 
-        // POSICAO DO PROXIMO PIXEL A SER PRINTADO
-        // -> o point_mod e scale_mod aplicam transformacao de tamanho ou orientacao
         void showImagePixelPoint(int j, int i){
             switch (filter->rotation_mod){
                 case 0:
@@ -82,16 +79,17 @@ class Images{
         int current_image = 0;
 
         void initialize(){
-            imgVector.push_back(new Image(".\\ghvieira_t1_v2\\resources\\haddad_1_256x256.bmp"));
-            imgVector.push_back(new Image(".\\ghvieira_t1_v2\\resources\\normal_1.bmp"));
-            imgVector.push_back(new Image(".\\ghvieira_t1_v2\\resources\\img1.bmp"));
+            imgVector.push_back(new Image(".\\ghvieira_t1_v2\\resources\\haddad_1_256x256.bmp", 0, 0));
+            imgVector.push_back(new Image(".\\ghvieira_t1_v2\\resources\\normal_1.bmp", 150, 300));
+            imgVector.push_back(new Image(".\\ghvieira_t1_v2\\resources\\img1.bmp", 600, 300));
         }
 
         void show(int mouseX, int mouseY){
             for(int i = 0; i < imgVector.size(); i++){
-                imgVector[current_image]->showImage(mouseX, mouseY, true);
+                if(i!=current_image)
+                    imgVector[i]->showImage(mouseX, mouseY, false);
             }
-
+            imgVector[current_image]->showImage(mouseX, mouseY, true);
         }
 
         void filterRChannel(){

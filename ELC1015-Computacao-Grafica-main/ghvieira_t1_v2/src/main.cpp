@@ -20,6 +20,12 @@ void render(){
     CV::clear(0,0,0);
     images.show(mouseX, mouseY);
     widgets.show(images.imgVector[images.current_image]);
+
+    CV::color(1, 1, 1);
+    CV::rectFill(screenWidth - screenWidth*0.20, screenHeight - screenHeight*0.20, screenWidth, screenHeight);
+    CV::color(0.3, 1, 0.4);
+    CV::line(screenWidth - screenWidth*0.20, screenHeight - screenHeight*0.20, screenWidth - screenWidth*0.20, screenHeight);
+    CV::line(screenWidth - screenWidth*0.20, screenHeight - screenHeight*0.20, screenWidth, screenHeight - screenHeight*0.20);
 }
 
 void keyboard(int key){
@@ -36,16 +42,16 @@ void keyboard(int key){
         case 51:
             images.current_image = 2;
         break;
-        case 200:
+        case 97:
             images.rotateLeft();
         break;
-        case 202:
+        case 100:
             images.rotateRight();
         break;
-        case 201:
+        case 119:
             images.scaleUp();
         break;
-        case 203:
+        case 115:
             images.scaleDown();
         break;
         case 114:
@@ -80,8 +86,13 @@ void mouseWheel(int direction){
 
 void mouseClick(){
     char key = widgets.collide(mouseX, mouseY);
-
     switch(key){
+        case 'A':
+            images.rotateLeft();
+        break;
+        case 'D':
+            images.rotateRight();
+        break;
         case 'R':
             images.filterRChannel();
         break;

@@ -42,5 +42,13 @@ class Filter{
                 r = g = b = gray;
             }
         }
+
+        void reset(){
+            this->r_channel = true;
+            this->g_channel = true;
+            this->b_channel = true;
+            this->grayscale = true;
+            this->reverse_rgb = true;
+        }
 };
 #endif
