@@ -9,7 +9,7 @@ public:
     int rotation_mod, scale_mod, print_mod;
     bool r_channel = true, g_channel = true, b_channel = true, grayscale = false, reverse_rgb = false;
 
-    Filter(){
+    filter(){
         r = 0.0;
         g = 0.0;
         b = 0.0;

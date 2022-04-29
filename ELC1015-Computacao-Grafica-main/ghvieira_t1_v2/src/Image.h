@@ -13,6 +13,7 @@ public:
     Bmp *img;
     Filter *filter;
     unsigned char *data;
+    float x = 0.0, y = 0.0;
 
     Image(const char *fileName){
         img = new Bmp(fileName);
@@ -36,7 +37,11 @@ public:
         for(int i = 0; i < img->getHeight()/filter->scale_mod; i++){
             for(int j = 0; j < img->getWidth()/filter->scale_mod; j++){
                 showImagePixelColor(cont);
-                showImagePixelPoint(j, i, mouseX, mouseY);
+                if(current_image){
+                    x = mouseX;
+                    y = mouseY;
+                }
+                showImagePixelPoint(j, i);
                 cont += 3 * pow(2,filter->print_mod);
             }
             if(filter->print_mod!=0){
@@ -54,22 +59,81 @@ public:
 
     // POSICAO DO PROXIMO PIXEL A SER PRINTADO
     // -> o point_mod e scale_mod aplicam transformacao de tamanho ou orientacao
-    void showImagePixelPoint(int j, int i, int mouseX, int mouseY){
+    void showImagePixelPoint(int j, int i){
         switch (filter->rotation_mod){
             case 0:
-                CV::point(mouseX - (img->getWidth()/2)/filter->scale_mod + j, mouseY - (img->getHeight()/2)/filter->scale_mod + i);
+                CV::point(x - (img->getWidth()/2)/filter->scale_mod + j, y - (img->getHeight()/2)/filter->scale_mod + i);
             break;
             case 90:
-                CV::point(mouseX - (img->getWidth()/2)/filter->scale_mod + i, mouseY + (img->getHeight()/2)/filter->scale_mod - j);
+                CV::point(x - (img->getWidth()/2)/filter->scale_mod + i, y + (img->getHeight()/2)/filter->scale_mod - j);
             break;
             case 180:
-                CV::point(mouseX + (img->getWidth()/2)/filter->scale_mod - j, mouseY + (img->getHeight()/2)/filter->scale_mod - i);
+                CV::point(x + (img->getWidth()/2)/filter->scale_mod - j, y + (img->getHeight()/2)/filter->scale_mod - i);
             break;
             case 270:
-                CV::point(mouseX + (img->getWidth()/2)/filter->scale_mod - i, mouseY - (img->getHeight()/2)/filter->scale_mod + j);
+                CV::point(x + (img->getWidth()/2)/filter->scale_mod - i, y - (img->getHeight()/2)/filter->scale_mod + j);
             break;
         }
     }
 
+};
+
+
+class Images{
+public:
+    std::vector<Image*> imgVector;
+    int current_image = 0;
+
+    void initialize(){
+        imgVector.push_back(new Image(".\\ghvieira_t1_v2\\resources\\haddad.bmp"));
+        imgVector.push_back(new Image(".\\ghvieira_t1_v2\\resources\\normal_1.bmp"));
+        imgVector.push_back(new Image(".\\ghvieira_t1_v2\\resources\\img1.bmp"));
+    }
+
+    void show(int mouseX, int mouseY){
+        imgVector[current_image]->showImage(mouseX, mouseY, true);
+    }
+
+    void filterRChannel(){
+        imgVector[current_image]->filter->r_channel = !imgVector[current_image]->filter->r_channel;
+    }
+
+    void filterGChannel(){
+        imgVector[current_image]->filter->g_channel = !imgVector[current_image]->filter->g_channel;
+    }
+
+    void filterBChannel(){
+        imgVector[current_image]->filter->b_channel = !imgVector[current_image]->filter->b_channel;
+    }
+
+    void filterGrayScale(){
+        imgVector[current_image]->filter->grayscale = !imgVector[current_image]->filter->grayscale;
+    }
+
+    void filterReverseColor(){
+        imgVector[current_image]->filter->reverse_rgb = !imgVector[current_image]->filter->reverse_rgb;
+    }
+
+    void scaleUp(){
+        if(imgVector[current_image]->filter->print_mod >= 1)
+            imgVector[current_image]->filter->print_mod --;
+    }
+
+    void scaleDown(){
+        if(imgVector[current_image]->filter->print_mod <= 1)
+            imgVector[current_image]->filter->print_mod ++;
+    }
+
+    void rotateRight(){
+        imgVector[current_image]->filter->rotation_mod +=90;
+        if(imgVector[current_image]->filter->rotation_mod==360)
+            imgVector[current_image]->filter->rotation_mod = 0;
+    }
+
+    void rotateLeft(){
+        imgVector[current_image]->filter->rotation_mod -=90;
+        if(imgVector[current_image]->filter->rotation_mod<0)
+            imgVector[current_image]->filter->rotation_mod = 270;
+    }
 };
 #endif
