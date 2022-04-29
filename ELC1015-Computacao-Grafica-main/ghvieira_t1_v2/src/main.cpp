@@ -1,15 +1,11 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <vector>
 #include <GL/glut.h>
 #include <GL/freeglut_ext.h>
 #include "gl_canvas2d.h"
-#include "Bmp.h"
 #include "Widget.h"
-#include "Filter.h"
 #include "Image.h"
-
 
 //TELA
 int screenWidth = 750, screenHeight = 750;
@@ -19,7 +15,6 @@ int mouseX, mouseY;
 Images images;
 //WIDGETS
 Widget widgets;
-
 
 void render(){
     CV::clear(0,0,0);
@@ -80,10 +75,21 @@ void keyboardUp(int key){
     //printf("\nLiberou tecla: %d" , key);
 }
 
+void mouseWheel(int direction){
+    if(direction == 1)
+        images.scaleUp();
+    else{
+        images.scaleDown();
+        }
+}
+
 void mouse(int button, int state, int wheel, int direction, int x, int y){
     //printf("\nmouse %d %d %d %d %d %d", button, state, wheel, direction,  x, y);
     mouseX = x;
     mouseY = y;
+    if(!wheel){
+        mouseWheel(direction);
+    }
 }
 
 void initialize(){

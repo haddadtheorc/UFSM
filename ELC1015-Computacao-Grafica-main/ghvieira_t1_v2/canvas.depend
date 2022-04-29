@@ -284,24 +284,21 @@
 
 1646253594 e:\semestre\computação gráfica\material\demos\ghvieira_t1_v2\src\vector2.h
 
-1651241710 source:e:\semestre\computação gráfica\material\demos\ghvieira_t1_v2\src\main.cpp
+1651242719 source:e:\semestre\computação gráfica\material\demos\ghvieira_t1_v2\src\main.cpp
 	<math.h>
 	<stdio.h>
 	<stdlib.h>
-	<vector>
 	<GL/glut.h>
 	<GL/freeglut_ext.h>
 	"gl_canvas2d.h"
-	"Bmp.h"
 	"Widget.h"
-	"Filter.h"
 	"Image.h"
 
 1651172358 e:\semestre\computação gráfica\material\demos\ghvieira_t1_v2\src\bmp.h
 	<stdio.h>
 	<stdlib.h>
 
-1651241408 e:\semestre\computação gráfica\material\demos\ghvieira_t1_v2\src\widget.h
+1651243035 e:\semestre\computação gráfica\material\demos\ghvieira_t1_v2\src\widget.h
 	<vector>
 	"gl_canvas2d.h"
 
@@ -309,10 +306,10 @@
 	"Bmp.h"
 	<string.h>
 
-1651240131 e:\semestre\computação gráfica\material\demos\ghvieira_t1_v2\src\filter.h
+1651243022 e:\semestre\computação gráfica\material\demos\ghvieira_t1_v2\src\filter.h
 	"gl_canvas2d.h"
 
-1651241734 e:\semestre\computação gráfica\material\demos\ghvieira_t1_v2\src\image.h
+1651243030 e:\semestre\computação gráfica\material\demos\ghvieira_t1_v2\src\image.h
 	"gl_canvas2d.h"
 	<vector>
 	"Bmp.h"

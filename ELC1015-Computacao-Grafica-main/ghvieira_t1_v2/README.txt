@@ -14,7 +14,7 @@ Trabalho 1 - Computação Gráfica - Manipulação de imagens
 
 INSTRUÇÕES DE USO:
 - A manipulação da orientação da imagem pode ser feita com as setas do teclado(esquerda e direita) bem como com os botões de orientação.
-- A manipulação da escala da imagem pode ser feita com as setas do teclado (cima e baixo) bem como com os botões de escala.
+- A manipulação da escala da imagem pode ser feita com as setas do teclado (cima e baixo) bem como com o scroll do mouse.
 - A manipulação de cor da imagem pode ser feita com as letras r, g, b, x, z, d(vermelho, verde, azul, tons de cinza, cores invertidas e default) bem como com as checkboxes com sua cor.
 
 
