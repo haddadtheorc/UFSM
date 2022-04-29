@@ -82,13 +82,16 @@ class Images{
         int current_image = 0;
 
         void initialize(){
-            imgVector.push_back(new Image(".\\ghvieira_t1_v2\\resources\\haddad.bmp"));
+            imgVector.push_back(new Image(".\\ghvieira_t1_v2\\resources\\haddad_1_256x256.bmp"));
             imgVector.push_back(new Image(".\\ghvieira_t1_v2\\resources\\normal_1.bmp"));
             imgVector.push_back(new Image(".\\ghvieira_t1_v2\\resources\\img1.bmp"));
         }
 
         void show(int mouseX, int mouseY){
-            imgVector[current_image]->showImage(mouseX, mouseY, true);
+            for(int i = 0; i < imgVector.size(); i++){
+                imgVector[current_image]->showImage(mouseX, mouseY, true);
+            }
+
         }
 
         void filterRChannel(){

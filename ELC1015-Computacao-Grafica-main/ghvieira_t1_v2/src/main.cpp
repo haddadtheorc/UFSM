@@ -19,7 +19,7 @@ Widget widgets;
 void render(){
     CV::clear(0,0,0);
     images.show(mouseX, mouseY);
-    widgets.show();
+    widgets.show(images.imgVector[images.current_image]);
 }
 
 void keyboard(int key){
@@ -50,23 +50,18 @@ void keyboard(int key){
         break;
         case 114:
             images.filterRChannel();
-            widgets.checkCheckboxes('R');
         break;
         case 103:
             images.filterGChannel();
-            widgets.checkCheckboxes('G');
         break;
         case 98:
             images.filterBChannel();
-            widgets.checkCheckboxes('B');
         break;
         case 120:
             images.filterGrayScale();
-            widgets.checkCheckboxes('X');
         break;
         case 122:
             images.filterReverseColor();
-            widgets.checkCheckboxes('Z');
         break;
     }
 }
@@ -83,10 +78,36 @@ void mouseWheel(int direction){
         }
 }
 
+void mouseClick(){
+    char key = widgets.collide(mouseX, mouseY);
+
+    switch(key){
+        case 'R':
+            images.filterRChannel();
+        break;
+        case 'G':
+            images.filterGChannel();
+        break;
+        case 'B':
+            images.filterBChannel();
+        break;
+        case 'X':
+            images.filterGrayScale();
+        break;
+        case 'Z':
+            images.filterReverseColor();
+        break;
+    }
+}
+
 void mouse(int button, int state, int wheel, int direction, int x, int y){
-    //printf("\nmouse %d %d %d %d %d %d", button, state, wheel, direction,  x, y);
+    printf("\nmouse %d %d %d %d %d %d", button, state, wheel, direction,  x, y);
     mouseX = x;
     mouseY = y;
+    if(button == 0){
+        if (state==0)
+            mouseClick();
+    }
     if(!wheel){
         mouseWheel(direction);
     }

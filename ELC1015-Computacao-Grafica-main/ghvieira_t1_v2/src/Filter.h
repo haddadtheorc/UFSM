@@ -6,7 +6,7 @@ class Filter{
     public:
         float r, g, b;
         int rotation_mod, scale_mod, print_mod;
-        bool r_channel = true, g_channel = true, b_channel = true, grayscale = false, reverse_rgb = false;
+        bool r_channel = true, g_channel = true, b_channel = true, grayscale = true, reverse_rgb = true;
 
         filter(){
             r = 0.0;
@@ -32,12 +32,12 @@ class Filter{
             if(!this->b_channel){
                 b = 0.0;
             }
-            if(this->reverse_rgb) {
+            if(!this->reverse_rgb) {
                 r = 1.0 - r;
                 g = 1.0 - g;
                 b = 1.0 - b;
             }
-            if(grayscale){
+            if(!grayscale){
                 float gray = r*0.299 + g*0.587 + b*0.114;
                 r = g = b = gray;
             }

@@ -2,6 +2,7 @@
 #define WIDGET_H
 #include <vector>
 #include "gl_canvas2d.h"
+#include "Image.h"
 
 class Checkbox{
 public:
@@ -30,7 +31,7 @@ public:
         CV::rect(x, y, x + largura, y + altura);
     }
 
-    bool colidiu(int mx, int my){
+    bool collide(int mx, int my){
         if( mx >= x && mx <= (x + largura) && my >= y && my <= (y + altura) )
             return true;
         return false;
@@ -56,9 +57,11 @@ class Button{
         void render(){
             CV::color(r, g, b);
             CV::rectFill(x, y, x + largura, y + altura);
+            CV::color(0, 0, 0);
+            CV::text(x, y+altura/2, "lel");
         }
 
-        bool colidiu(int mx, int my){
+        bool collide(int mx, int my){
             if( mx >= x && mx <= (x + largura) && my >= y && my <= (y + altura))
                 return true;
             return false;
@@ -82,8 +85,23 @@ class Widget{
             buttonVector.push_back(new Button(screenWidth-100-screenWidth*0.07, 100, screenHeight*0.07 , screenWidth*0.07, 1, 1, 1));
         }
 
-    void show(){
+    char collide(int mx, int my){
+        for(int i = 0; i < buttonVector.size(); i ++){
+            if(buttonVector[i]->collide(mx, my)){
+                printf("BATEU");
+            }
+        }
+        for(int i = 0; i < checkboxVector.size(); i ++){
+            if(checkboxVector[i]->collide(mx, my)){
+                return (checkboxVector[i]->id);
+            }
+        }
+    }
+
+    void show(Image* image){
+            uncheckCheckboxes();
             showButtons();
+            checkCheckboxes(image);
             showCheckboxes();
         }
 
@@ -97,13 +115,34 @@ class Widget{
             for(int i = 0; i < checkboxVector.size(); i++){
                 checkboxVector[i]->render();
             }
-        }
+    }
 
-    void checkCheckboxes(char _id){
-            for(int i = 0; i < checkboxVector.size(); i++){
-                if(checkboxVector[i]->id == _id)
-                    checkboxVector[i]->check = !checkboxVector[i]->check;
-            }
+    void uncheckCheckboxes(){
+        for(int i = 0; i < checkboxVector.size(); i++){
+            checkboxVector[i]->check = false;
         }
+    }
+
+    void checkCheckboxes(Image* image){
+        if(!image->filter->r_channel)
+            checkCheckbox('R');
+        if(!image->filter->g_channel)
+            checkCheckbox('G');
+        if(!image->filter->b_channel)
+            checkCheckbox('B');
+        if(!image->filter->grayscale)
+            checkCheckbox('X');
+        if(!image->filter->reverse_rgb)
+            checkCheckbox('Z');
+    }
+
+    void checkCheckbox(char id){
+        for(int i = 0; i < checkboxVector.size(); i++){
+            if(checkboxVector[i]->id == id)
+                checkboxVector[i]->check = true;
+        }
+    }
+
+
 };
 #endif
