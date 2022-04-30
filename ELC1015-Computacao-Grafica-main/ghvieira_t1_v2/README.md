@@ -20,6 +20,7 @@
 - Exibir o histograma dos canais RGB e luminância. (A FAZER) (Obrigatório)
 - Rotacionar a imagem (90º direita ou esquerda). (Obrigatório)
 - Escalar a imagem (1/2 e 1/4). (Obrigatório)
+- Botões para diversas operações (botões e checkboxes). (Obrigatório)
 
 *BÔNUS*:
 - Exibir a imagem em cores invertidas.
@@ -28,7 +29,7 @@
 
 ### Widgets implementados:
 - Botões e checkboxes.
-- Todos os widgets implementados possuem um posicionamento - ancorado em pontos genericos - e um tamanho, ambos atributos proporcionais ao tamanho da tela. Isso permite, ao refatorar o tamanho da tela, os widgets acompanharem essas modificações.
+
 
 ### Estruturação do código:
 - O código foi estruturando tentando se aproveitar da orientação a objetos provida pelo C++. Com isso o arquivo "main.cpp" ficou o mais enxuto possível, apenas chamando os métodos das classes durante a execução de render().
@@ -40,6 +41,7 @@
   - Enquanto isso método show() na classe 'Image' renderiza exclusivamente aquela imagem.
 
 - Widgets
+  - Todos os widgets implementados possuem um posicionamento - ancorado em pontos genericos - e um tamanho, ambos atributos proporcionais ao tamanho da tela. Isso permite, ao refatorar o tamanho da tela, os widgets acompanharem essas modificações.   
   - A classe 'Widget' foi criada extremamente modular para facilitar a adição de mais widgets, agindo como o "manager" de botões como foi sugerido no trabalho.
   - Possui como atributo um array de widgets - nesse caso botões e checkboxes - e os métodos show() e collide(). 
   - O método show() trata de renderizar todos os widgets presentes no objeto, enquanto método collide() trata de verificar quaiquer colisões nos widgets.
