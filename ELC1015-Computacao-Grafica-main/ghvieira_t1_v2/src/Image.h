@@ -11,7 +11,7 @@ class Image{
         Bmp *img;
         Filter *filter;
         unsigned char *data;
-        float x = 0.0, y = 0.0;
+        float x = 0.0, y = 0.0, offsetX = x, offsetY = y;
 
         Image(const char *fileName, float _x, float _y){
             img = new Bmp(fileName);
@@ -37,8 +37,8 @@ class Image{
                 for(int j = 0; j < img->getWidth()/filter->scale_mod; j++){
                     showImagePixelColor(cont);
                     if(current_image){
-                        x = mouseX;
-                        y = mouseY;
+                        x = mouseX + this->offsetX;
+                        y = mouseY + this->offsetY;
                     }
                     showImagePixelPoint(j, i);
                     cont += 3 * pow(2,filter->print_mod);
@@ -76,20 +76,37 @@ class Image{
 class Images{
     public:
         std::vector<Image*> imgVector;
-        int current_image = 0;
+        int current_image = -1;
 
         void initialize(){
-            imgVector.push_back(new Image(".\\ghvieira_t1_v2\\resources\\haddad_1_256x256.bmp", 0, 0));
-            imgVector.push_back(new Image(".\\ghvieira_t1_v2\\resources\\normal_1.bmp", 150, 300));
-            imgVector.push_back(new Image(".\\ghvieira_t1_v2\\resources\\img1.bmp", 600, 300));
+            imgVector.push_back(new Image(".\\ghvieira_t1_v2\\resources\\haddad_1_256x256.bmp", 500, 500));
+            imgVector.push_back(new Image(".\\ghvieira_t1_v2\\resources\\normal_1.bmp", 250, 400));
+            imgVector.push_back(new Image(".\\ghvieira_t1_v2\\resources\\img1.bmp", 800, 400));
+        }
+
+        void collide(int mx, int my){
+            for(int i = imgVector.size()-1; i >= 0; i --){
+                if(   mx >= imgVector[i]->x - imgVector[i]->img->getWidth()/2  && mx <= imgVector[i]->x + imgVector[i]->img->getWidth()/2
+                   && my >= imgVector[i]->y - imgVector[i]->img->getHeight()/2 && my <= imgVector[i]->y + imgVector[i]->img->getHeight()/2)
+                    if(current_image == -1){
+                        current_image = i;
+                        imgVector[i]->offsetX = imgVector[i]->x - mx;
+                        imgVector[i]->offsetY = imgVector[i]->y - my;
+                        return;
+                    }
+                    else{
+                        current_image = -1;
+                        return;
+                    }
+            }
         }
 
         void show(int mouseX, int mouseY){
             for(int i = 0; i < imgVector.size(); i++){
-                if(i!=current_image)
                     imgVector[i]->showImage(mouseX, mouseY, false);
             }
-            imgVector[current_image]->showImage(mouseX, mouseY, true);
+            if(current_image > -1)
+                imgVector[current_image]->showImage(mouseX, mouseY, true);
         }
 
         void filterRChannel(){

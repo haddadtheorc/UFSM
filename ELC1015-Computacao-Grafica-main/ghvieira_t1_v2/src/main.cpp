@@ -8,7 +8,7 @@
 #include "Image.h"
 
 //TELA
-int screenWidth = 750, screenHeight = 750;
+int screenWidth = 1000, screenHeight = 1000;
 //MOUSE
 int mouseX, mouseY;
 //IMAGENS
@@ -19,7 +19,7 @@ Widget widgets;
 void render(){
     CV::clear(0,0,0);
     images.show(mouseX, mouseY);
-    widgets.show(images.imgVector[images.current_image]);
+    widgets.show(images);
 
     CV::color(1, 1, 1);
     CV::rectFill(screenWidth - screenWidth*0.20, screenHeight - screenHeight*0.20, screenWidth, screenHeight);
@@ -29,6 +29,8 @@ void render(){
 }
 
 void keyboard(int key){
+    if(images.current_image < 0)
+        return;
     //printf("\nPressinou tecla: %d" , key);
     switch(key){
         case 27:
@@ -77,6 +79,8 @@ void keyboardUp(int key){
 }
 
 void mouseWheel(int direction){
+    if(images.current_image < 0)
+        return;
     if(direction == 1)
         images.scaleUp();
     else{
@@ -85,30 +89,35 @@ void mouseWheel(int direction){
 }
 
 void mouseClick(){
+    if(images.current_image < 0){
+        images.collide(mouseX, mouseY);
+        return;
+    }
     char key = widgets.collide(mouseX, mouseY);
     switch(key){
         case 'A':
             images.rotateLeft();
-        break;
+            return;
         case 'D':
             images.rotateRight();
-        break;
+            return;
         case 'R':
             images.filterRChannel();
-        break;
+            return;
         case 'G':
             images.filterGChannel();
-        break;
+            return;
         case 'B':
             images.filterBChannel();
-        break;
+            return;
         case 'X':
             images.filterGrayScale();
-        break;
+            return;
         case 'Z':
             images.filterReverseColor();
-        break;
+            return;
     }
+    images.collide(mouseX, mouseY);
 }
 
 void mouse(int button, int state, int wheel, int direction, int x, int y){

@@ -100,10 +100,11 @@ class Widget{
         }
     }
 
-    void show(Image* image){
+    void show(Images images){
             uncheckCheckboxes();
             showButtons();
-            checkCheckboxes(image);
+            if(images.current_image > -1)
+                checkCheckboxes(images.imgVector[images.current_image]);
             showCheckboxes();
         }
 
@@ -144,7 +145,6 @@ class Widget{
                 checkboxVector[i]->check = true;
         }
     }
-
 
 };
 #endif
