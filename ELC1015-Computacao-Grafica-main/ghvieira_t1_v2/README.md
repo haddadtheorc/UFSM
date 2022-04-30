@@ -1,8 +1,8 @@
-#Trabalho 1 - Computação Gráfica - Manipulação de imagens
-##Gabriel Haddad Vieira - 201612818
+# Trabalho 1 - Computação Gráfica - Manipulação de imagens
+## Gabriel Haddad Vieira - 201612818
 
 
-###Instruções de uso:
+### Instruções de uso:
 - Para selecionar uma imagem na tela, basta clicar sobre ela. Com isso ela se torna ativa e passa a acompanhar o mouse.
 - Clicar numa imagem ativa a faz ser liberada e ficar estacionária na tela como as demais.
 - A manipulação da orientação da imagem pode ser feita com as letras 'a' e 'd' - para rodar, respectivamente, para esquerda e direita - bem como com os botões de rotação.
@@ -12,7 +12,7 @@
 
 ---------------------------------------------------------------------------------------------------
 
-###Requisitos implementados:
+### Requisitos implementados:
 - Carregar imagem colorida (RGB) em formato BMP. (Obrigatório)
 - Mover cada imagem individualmente com o uso do mouse. (Obrigatório)
 - Exibir a imagem em canais separados RBG. (Obrigatório)
@@ -26,11 +26,11 @@
 
 ---------------------------------------------------------------------------------------------------
 
-###Widgets implementados:
+### Widgets implementados:
 - Botões e checkboxes.
 - Todos os widgets implementados possuem um posicionamento - ancorado em pontos genericos - e um tamanho, ambos atributos proporcionais ao tamanho da tela. Isso permite, ao refatorar o tamanho da tela, os widgets acompanharem essas modificações.
 
-###Estruturação do códigoh
+### Estruturação do códigoh
 - O código foi estruturando tentando se aproveitar da orientação a objetos provida pelo C++. Com isso o arquivo "main.cpp" ficou o mais enxuto possível, apenas chamando os métodos das classes durante a execução de render().
 
 ---Imagens---
