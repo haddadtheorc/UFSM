@@ -17,7 +17,7 @@
 - Mover cada imagem individualmente com o uso do mouse. (Obrigatório)
 - Exibir a imagem em canais separados RBG. (Obrigatório)
 - Exibir a imagem em tons de cinza. (Obrigatório)
-- Exibir o histograma dos canais RGB e luminância. (A FAZER) (Obrigatório)
+- Exibir o histograma dos canais RGB e luminância. (Obrigatório)
 - Rotacionar a imagem (90º direita ou esquerda). (Obrigatório)
 - Escalar a imagem (1/2 e 1/4). (Obrigatório)
 - Botões para diversas operações (botões e checkboxes). (Obrigatório)
@@ -50,3 +50,8 @@
 - Filtros
   - A classe 'Filter' contém todas as informações de possíveis filtros a serem aplicados na imagem. Ela armazena não somente os filtros de cores, mas de orientação e de escala.
   - Seu método filter() aplica os filtros de cor na imagem preemptivo a sua impressão. O método reset() remove quaisquer filtros aplicados em uma imagem.
+
+- Histograma
+  - A classe 'Histogram' contém o método plot(), criado para exibir o histograma de uma imagem na tela.
+  - Sua é exibição é afetada por quaisquer filtros de cor aplicados na imagem.
+  - Ele mostra os três canais de cor RGB separados bem como o canal de escala de cinza. 
