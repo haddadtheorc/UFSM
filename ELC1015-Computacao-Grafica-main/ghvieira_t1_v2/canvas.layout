@@ -2,75 +2,68 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Release" />
-	<File name="src\Widget.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src\gl_canvas2d.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2725" topLine="0" />
+			<Cursor1 position="370" topLine="38" />
+		</Cursor>
+	</File>
+	<File name="src\main.cpp" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="453" topLine="0" />
+		</Cursor>
+		<Folding>
+			<Collapse line="21" />
+			<Collapse line="28" />
+			<Collapse line="74" />
+			<Collapse line="78" />
+			<Collapse line="88" />
+			<Collapse line="120" />
+			<Collapse line="133" />
+			<Collapse line="138" />
+		</Folding>
+	</File>
+	<File name="src\Image.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="4204" topLine="6" />
+		</Cursor>
+	</File>
+	<File name="src\bmp.cpp" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1595" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src\Histogram.h" open="1" top="1" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="314" topLine="0" />
+		</Cursor>
+		<Folding>
+			<Collapse line="26" />
+		</Folding>
+	</File>
+	<File name="src\Widget.h" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="146" topLine="0" />
 		</Cursor>
 		<Folding>
 			<Collapse line="12" />
-			<Collapse line="23" />
-			<Collapse line="33" />
+			<Collapse line="18" />
+			<Collapse line="29" />
+			<Collapse line="39" />
 		</Folding>
-	</File>
-	<File name="src\Bmp.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1287" topLine="9" />
-		</Cursor>
-	</File>
-	<File name="src\Filter.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1443" topLine="0" />
-		</Cursor>
-		<Folding>
-			<Collapse line="19" />
-		</Folding>
-	</File>
-	<File name="src\main.cpp" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2154" topLine="45" />
-		</Cursor>
 	</File>
 	<File name="src\gl_canvas2d.cpp" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="2843" topLine="102" />
 		</Cursor>
 	</File>
-	<File name="src\gl_canvas2d.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src\Bmp.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="370" topLine="38" />
+			<Cursor1 position="1287" topLine="21" />
 		</Cursor>
 	</File>
-	<File name="src\bmp.cpp" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src\Filter.h" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1595" topLine="42" />
+			<Cursor1 position="107" topLine="0" />
 		</Cursor>
-	</File>
-	<File name="src\Vector2.h" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="678" topLine="28" />
-		</Cursor>
-	</File>
-	<File name="src\Image.h" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="3397" topLine="8" />
-		</Cursor>
-		<Folding>
-			<Collapse line="7" />
-			<Collapse line="15" />
-			<Collapse line="24" />
-			<Collapse line="51" />
-			<Collapse line="56" />
-			<Collapse line="80" />
-			<Collapse line="94" />
-			<Collapse line="102" />
-			<Collapse line="106" />
-			<Collapse line="110" />
-			<Collapse line="114" />
-			<Collapse line="118" />
-			<Collapse line="122" />
-			<Collapse line="127" />
-			<Collapse line="132" />
-			<Collapse line="138" />
-		</Folding>
 	</File>
 </CodeBlocks_layout_file>

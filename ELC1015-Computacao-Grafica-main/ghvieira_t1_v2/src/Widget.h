@@ -4,6 +4,12 @@
 #include "gl_canvas2d.h"
 #include "Image.h"
 
+//HEADER PARA GERENCIAMENTO DOS WIDGETS
+
+//Cada widget tem sua classe com atributos e métodos próprios, mas todos possuem a função para sua exibição render() e para detectar colisão collide()
+//A classe Widget inicializa os widgets implementados e controla sua renderização e colisão com as funções show() e collide()
+//As demais funções são funções auxiliares para uma destas duas chamadas
+
 class Checkbox{
 public:
     float altura, largura, x, y, r, g, b;
@@ -43,8 +49,9 @@ class Button{
         float altura, largura, x, y, r, g, b;
         int mod;
         char id;
+        char* text = "<-";
 
-        Button(float _x, float _y, float _larg, float _alt, int _r, int _g, int _b, char _id){
+        Button(float _x, float _y, float _larg, float _alt, float _r, float _g, float _b, char _id, char* _text){
          altura  = _alt;
          largura = _larg;
          x = _x;
@@ -53,6 +60,7 @@ class Button{
          g = _g;
          b = _b;
          id = _id;
+         text = _text;
 
       }
 
@@ -60,7 +68,7 @@ class Button{
             CV::color(r, g, b);
             CV::rectFill(x, y, x + largura, y + altura);
             CV::color(0, 0, 0);
-            CV::text(x, y+altura/2, "lel");
+            CV::text(x+largura/3, y+altura/2, text);
         }
 
         bool collide(int mx, int my){
@@ -83,8 +91,8 @@ class Widget{
             checkboxVector.push_back(new Checkbox(150, screenHeight-50, screenWidth*0.02, screenHeight*0.02, 0.5, 0.5, 0.5, 'X'));
             checkboxVector.push_back(new Checkbox(180, screenHeight-50, screenWidth*0.02, screenHeight*0.02, 1, 0, 1, 'Z'));
             //BUTTONS (LEFT, RIGHT)
-            buttonVector.push_back(new Button(100, 100, screenHeight*0.07 , screenWidth*0.07, 1, 1, 1, 'A'));
-            buttonVector.push_back(new Button(screenWidth-100-screenWidth*0.07, 100, screenHeight*0.07 , screenWidth*0.07, 1, 1, 1, 'D'));
+            buttonVector.push_back(new Button(screenWidth/2-screenWidth*0.07, 100, screenHeight*0.07 , screenWidth*0.07, 0.8, 0.8, 0.8, 'A', "<-"));
+            buttonVector.push_back(new Button(screenWidth/2+screenWidth*0.07, 100, screenHeight*0.07 , screenWidth*0.07, 0.8, 0.8, 0.8, 'D', "->"));
         }
 
     char collide(int mx, int my){

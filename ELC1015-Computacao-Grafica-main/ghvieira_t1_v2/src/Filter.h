@@ -2,6 +2,12 @@
 #define FILTER_H
 #include "gl_canvas2d.h"
 
+//HEADER PARA GERENCIAMENTO DOS FILTROS
+
+//Cada imagem possui filtros próprios, então uma classe foi criada para englobar qualquer modificação que seja feita em uma imagem
+//A função filter() trata de aplicar na imagem a ser mostrada quaisquer filtros que sejam aplicados a ela
+//A função reset() apenas reseta os filtros de uma imagem
+
 class Filter{
     public:
         float r, g, b;

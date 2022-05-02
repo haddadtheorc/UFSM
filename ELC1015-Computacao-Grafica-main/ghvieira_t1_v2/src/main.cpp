@@ -6,6 +6,7 @@
 #include "gl_canvas2d.h"
 #include "Widget.h"
 #include "Image.h"
+#include "Histogram.h"
 
 //TELA
 int screenWidth = 1000, screenHeight = 1000;
@@ -15,26 +16,23 @@ int mouseX, mouseY;
 Images images;
 //WIDGETS
 Widget widgets;
+//HISTOGRAMA
+Histogram histogram;
 
 void render(){
     CV::clear(0,0,0);
     images.show(mouseX, mouseY);
     widgets.show(images);
-
-    CV::color(1, 1, 1);
-    CV::rectFill(screenWidth - screenWidth*0.20, screenHeight - screenHeight*0.20, screenWidth, screenHeight);
-    CV::color(0.3, 1, 0.4);
-    CV::line(screenWidth - screenWidth*0.20, screenHeight - screenHeight*0.20, screenWidth - screenWidth*0.20, screenHeight);
-    CV::line(screenWidth - screenWidth*0.20, screenHeight - screenHeight*0.20, screenWidth, screenHeight - screenHeight*0.20);
+    histogram.plot(images, screenWidth, screenHeight);
 }
 
 void keyboard(int key){
+    if (key == 27)
+        exit(0);
     if(images.current_image < 0)
         return;
     //printf("\nPressinou tecla: %d" , key);
     switch(key){
-        case 27:
-            exit(0);
         case 49:
             images.current_image = 0;
         break;

@@ -46,6 +46,7 @@
 		<Unit filename="include/GL/glut.h" />
 		<Unit filename="src/Bmp.h" />
 		<Unit filename="src/Filter.h" />
+		<Unit filename="src/Histogram.h" />
 		<Unit filename="src/Image.h" />
 		<Unit filename="src/Vector2.h" />
 		<Unit filename="src/Widget.h" />
