@@ -52,6 +52,6 @@
   - Seu método filter() aplica os filtros de cor na imagem preemptivo a sua impressão. O método reset() remove quaisquer filtros aplicados em uma imagem.
 
 - Histograma
-  - A classe 'Histogram' contém o método plot(), criado para exibir o histograma de uma imagem na tela.
+  - A classe 'Histogram' contém o método plot(), criado para exibir o histograma da atual imagem ativa.
   - Sua é exibição é afetada por quaisquer filtros de cor aplicados na imagem.
   - Ele mostra os três canais de cor RGB separados bem como o canal de escala de cinza. 
