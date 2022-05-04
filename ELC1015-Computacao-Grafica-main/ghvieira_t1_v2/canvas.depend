@@ -220,7 +220,7 @@
 	<stdio.h>
 	<stdlib.h>
 
-1646253594 source:e:\semestre\computação gráfica\material\demos\ghvieira_t1\src\gl_canvas2d.cpp
+1651699673 source:e:\semestre\computação gráfica\material\demos\ghvieira_t1\src\gl_canvas2d.cpp
 	"gl_canvas2d.h"
 	<GL/glut.h>
 
@@ -331,21 +331,21 @@
 	"Image.h"
 	"Histogram.h"
 
-1651436521 e:\semestre\computação gráfica\material\demos\ghvieira_t1\src\widget.h
+1651700575 e:\semestre\computação gráfica\material\demos\ghvieira_t1\src\widget.h
 	<vector>
 	"gl_canvas2d.h"
 	"Image.h"
 
-1651699165 e:\semestre\computação gráfica\material\demos\ghvieira_t1\src\image.h
+1651700514 e:\semestre\computação gráfica\material\demos\ghvieira_t1\src\image.h
 	"gl_canvas2d.h"
 	<vector>
 	"Bmp.h"
 	"Filter.h"
 
-1651436520 e:\semestre\computação gráfica\material\demos\ghvieira_t1\src\filter.h
+1651700541 e:\semestre\computação gráfica\material\demos\ghvieira_t1\src\filter.h
 	"gl_canvas2d.h"
 
-1651699614 e:\semestre\computação gráfica\material\demos\ghvieira_t1\src\histogram.h
+1651703611 e:\semestre\computação gráfica\material\demos\ghvieira_t1\src\histogram.h
 	"gl_canvas2d.h"
 	<vector>
 	<algorithm>

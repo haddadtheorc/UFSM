@@ -110,27 +110,33 @@ class Histogram{
 
             int x1 = screenWidth - screenWidth*0.30, y1 = screenHeight - screenHeight*0.30, x2 = screenWidth, y2 = screenHeight;
             Image* image = images.imgVector[images.current_image];
-            int gray = 0;
 
             std::vector<int>colorR(256, 0);
             std::vector<int>colorG(256, 0);
             std::vector<int>colorB(256, 0);
+            std::vector<int>colorGray(256, 0);
+            int gray = 0;
 
             for(int i = 0; i < image->img->getHeight()*image->img->getWidth()*3; i += 3){
-                if(!image->filter->reverse_rgb){
+                if(image->filter->reverse_rgb){
                     colorR[image->data[i]]+=1;
                     colorG[image->data[i+1]]+=1;
                     colorB[image->data[i+2]]+=1;
+                    gray =  0.299*image->data[i] + 0.587*image->data[i+1] + 0.114*image->data[i+2];
                 }
                 else{
                    colorR[255 - image->data[i]]+=1;
                     colorG[255 - image->data[i+1]]+=1;
                     colorB[255 - image->data[i+2]]+=1;
+                    gray = 255-gray;
                 }
+                colorGray[gray]+=1;
             }
+
             int highest_R = *max_element(std::begin(colorR), std::end(colorR));
             int highest_G = *max_element(std::begin(colorG), std::end(colorG));
             int highest_B = *max_element(std::begin(colorB), std::end(colorB));
+            int highest_Gray = *max_element(std::begin(colorGray), std::end(colorGray));
 
             for(int i = 0; i < colorR.size(); i ++){
                 float yCoord, xCoord;
@@ -151,6 +157,12 @@ class Histogram{
                     yCoord = (colorB[i]*(y2-y1))/highest_B;
                     xCoord = (i*(x2-x1))/colorB.size();
                     CV::color(0, 0, 1);
+                    CV::line(x1 + xCoord, y1, x1 + xCoord, y1 + yCoord);
+                }
+                if(!image->filter->grayscale){
+                    yCoord = (colorGray[i]*(y2-y1))/highest_Gray;
+                    xCoord = (i*(x2-x1))/colorGray.size();
+                    CV::color(0.5, 0.5, 0.5);
                     CV::line(x1 + xCoord, y1, x1 + xCoord, y1 + yCoord);
                 }
             }
