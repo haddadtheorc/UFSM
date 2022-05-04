@@ -212,11 +212,11 @@
 1646253594 e:\semestre\computação gráfica\ghvieira_t1\src\widget.h
 	"gl_canvas2d.h"
 
-1646253594 source:e:\semestre\computação gráfica\material\demos\ghvieira_t1\src\bmp.cpp
+1651699649 source:e:\semestre\computação gráfica\material\demos\ghvieira_t1\src\bmp.cpp
 	"Bmp.h"
 	<string.h>
 
-1646253594 e:\semestre\computação gráfica\material\demos\ghvieira_t1\src\bmp.h
+1651172358 e:\semestre\computação gráfica\material\demos\ghvieira_t1\src\bmp.h
 	<stdio.h>
 	<stdlib.h>
 
@@ -284,7 +284,7 @@
 
 1646253594 e:\semestre\computação gráfica\material\demos\ghvieira_t1_v2\src\vector2.h
 
-1651531966 source:e:\semestre\computação gráfica\material\demos\ghvieira_t1_v2\src\main.cpp
+1651534964 source:e:\semestre\computação gráfica\material\demos\ghvieira_t1_v2\src\main.cpp
 	<math.h>
 	<stdio.h>
 	<stdlib.h>
@@ -317,6 +317,36 @@
 	"Bmp.h"
 	"Filter.h"
 
-1651533543 e:\semestre\computação gráfica\material\demos\ghvieira_t1_v2\src\histogram.h
+1651533605 e:\semestre\computação gráfica\material\demos\ghvieira_t1_v2\src\histogram.h
 	"gl_canvas2d.h"
+
+1651698706 source:e:\semestre\computação gráfica\material\demos\ghvieira_t1\src\main.cpp
+	<math.h>
+	<stdio.h>
+	<stdlib.h>
+	<GL/glut.h>
+	<GL/freeglut_ext.h>
+	"gl_canvas2d.h"
+	"Widget.h"
+	"Image.h"
+	"Histogram.h"
+
+1651436521 e:\semestre\computação gráfica\material\demos\ghvieira_t1\src\widget.h
+	<vector>
+	"gl_canvas2d.h"
+	"Image.h"
+
+1651699165 e:\semestre\computação gráfica\material\demos\ghvieira_t1\src\image.h
+	"gl_canvas2d.h"
+	<vector>
+	"Bmp.h"
+	"Filter.h"
+
+1651436520 e:\semestre\computação gráfica\material\demos\ghvieira_t1\src\filter.h
+	"gl_canvas2d.h"
+
+1651699614 e:\semestre\computação gráfica\material\demos\ghvieira_t1\src\histogram.h
+	"gl_canvas2d.h"
+	<vector>
+	<algorithm>
 

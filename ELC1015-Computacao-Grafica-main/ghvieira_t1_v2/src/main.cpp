@@ -31,7 +31,6 @@ void keyboard(int key){
         exit(0);
     if(images.current_image < 0)
         return;
-    //printf("\nPressinou tecla: %d" , key);
     switch(key){
         case 49:
             images.current_image = 0;
@@ -69,11 +68,13 @@ void keyboard(int key){
         case 122:
             images.filterReverseColor();
         break;
+        case 104:
+            histogram.plotMode = !histogram.plotMode;
+        break;
     }
 }
 
 void keyboardUp(int key){
-    //printf("\nLiberou tecla: %d" , key);
 }
 
 void mouseWheel(int direction){
@@ -119,7 +120,6 @@ void mouseClick(){
 }
 
 void mouse(int button, int state, int wheel, int direction, int x, int y){
-    printf("\nmouse %d %d %d %d %d %d", button, state, wheel, direction,  x, y);
     mouseX = x;
     mouseY = y;
     if(button == 0){

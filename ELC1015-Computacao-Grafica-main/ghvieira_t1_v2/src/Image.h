@@ -87,9 +87,9 @@ class Images{
         int current_image = -1;
 
         void initialize(){
-            imgVector.push_back(new Image(".\\ghvieira_t1_v2\\resources\\haddad_1_256x256.bmp", 500, 500));
-            imgVector.push_back(new Image(".\\ghvieira_t1_v2\\resources\\normal_1.bmp", 250, 400));
-            imgVector.push_back(new Image(".\\ghvieira_t1_v2\\resources\\img1.bmp", 800, 400));
+            imgVector.push_back(new Image(".\\ghvieira_t1\\resources\\haddad_1_256x256.bmp", 500, 500));
+            imgVector.push_back(new Image(".\\ghvieira_t1\\resources\\normal_1.bmp", 250, 400));
+            imgVector.push_back(new Image(".\\ghvieira_t1\\resources\\lena.bmp", 800, 400));
         }
 
         void collide(int mx, int my){
