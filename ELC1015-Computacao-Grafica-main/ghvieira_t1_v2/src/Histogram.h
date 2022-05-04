@@ -4,13 +4,15 @@
 #include <vector>
 #include <algorithm>
 
-//HEADER PARA GERENCIAMENTO DO HISTOGRAMA
-
-//Seu método plot() trata da renderização do histograma da imagem na tela
-//A imagem a ter seu histograma renderizado, bem como o tamanho da tela são os argumentos necessários para a função
-//Foram criados dois histogramas:
-//o plotRecurrence() cria o histograma c base na recorrencia daquela cor, de tal forma que o eixo Y é a quantidade de vezes que aquela cor aparece, enquanto o eixo X é o valor da cor
-//o plotRecurrence cria o histograma baseado na intensidade de cor, o eixo Y é o valor daquele pixel, enqquanto o eixo X é o pixel em si
+/*
+- Histograma
+  - A classe 'Histogram' contém o método plot(), criado para exibir o histograma da atual imagem ativa.
+  - Sua é exibição é afetada por quaisquer filtros de cor aplicados na imagem.
+  - Foram implementados dois tipos diferentes de histograma:
+    - O plotIntensity() renderiza na tela baseado na itensidade da cor. O eixo X representa o pixel enquanto o eixo Y o seu valor.
+    - O plotRecurrence() renderiza na tela baseado na recorrência da cor. O eixo X representa o valor do pixel enqunato o eixo Y a sua recorrência na imagem.
+  - Ele mostra os três canais de cor RGB separados bem como o canal de escala de cinza.
+  */
 
 class Histogram{
     public:

@@ -4,11 +4,14 @@
 #include "gl_canvas2d.h"
 #include "Image.h"
 
-//HEADER PARA GERENCIAMENTO DOS WIDGETS
-
-//Cada widget tem sua classe com atributos e métodos próprios, mas todos possuem a função para sua exibição render() e para detectar colisão collide()
-//A classe Widget inicializa os widgets implementados e controla sua renderização e colisão com as funções show() e collide()
-//As demais funções são funções auxiliares para uma destas duas chamadas
+/*
+- Widgets
+  - Todos os widgets implementados possuem um posicionamento - ancorado em pontos genericos - e um tamanho, ambos atributos proporcionais ao tamanho da tela. Isso permite, ao refatorar o tamanho da tela, os widgets acompanharem essas modificações.
+  - A classe 'Widget' foi criada extremamente modular para facilitar a adição de mais widgets, agindo como o "manager" de botões como foi sugerido no trabalho.
+  - Possui como atributo um array de widgets - nesse caso botões e checkboxes - e os métodos show() e collide().
+  - O método show() trata de renderizar todos os widgets presentes no objeto, enquanto método collide() trata de verificar quaiquer colisões nos widgets.
+  - Os widgets são criados e armazenados no array no método initialize(). Cada widget tem sua classe separada, bem como atributos e métodos únicos, mas os métodos render() e collide() são comuns a todos.
+  */
 
 class Checkbox{
 public:

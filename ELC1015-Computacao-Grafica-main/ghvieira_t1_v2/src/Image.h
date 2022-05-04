@@ -5,13 +5,13 @@
 #include "Bmp.h"
 #include "Filter.h"
 
-//HEADER PARA GERENCIAMENTO DAS IMAGENS
-
-//A classe Images contém um vetor de imagens, para facilitar sua impressão e gerenciamento das imagens carregadas
-//É nessa classe que se inicializam as imagens - método initialize(), se tratam suas colisões - método collide() e se chamam as aplicações de seus filtros.
-
-//A classe Image é pertinente a uma imagem por vez, contendo seus filtros, posição e demais informações
-//É nessa classe que a impressão da imagem é feita - método showImage()
+/*
+- Imagens
+  - A classe 'Images' contém vetor de imagens (classe 'Image') como atributo, para melhor leitura e facilitar para sua renderização.
+  - Cada imagem no vetor de imagens tem seu atributo filtro (classe 'Filter') para sua edição.
+  - O método show() na classe 'Images' trata de renderizar todas as imagens carregadas na aplicação, enquanto o método collide() trata de verificar quaiquer colisões na imagem.
+  - Enquanto isso método show() na classe 'Image' renderiza exclusivamente aquela imagem.
+*/
 
 class Image{
     public:
