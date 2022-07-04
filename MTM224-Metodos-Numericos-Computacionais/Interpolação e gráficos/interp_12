@@ -1,0 +1,26 @@
+function interp_12(x, y)
+
+  n = length(x);
+
+  
+  M = ones(size(x,1));  
+  for i = 1:n
+    for j = 1:n 
+      if (i ~= j)
+        M(i,:) = M(i,:) .* (x'-x(j)) / (x(i)-x(j));
+      endif
+    endfor
+  endfor
+  
+  
+  interp = zeros(size(x));
+  for i=1:n
+      interp = interp + y(i) * M(i,:)';
+  end
+
+  
+  plot(x, y, 'ok');
+  hold on
+  plot(x, interp, 'r');
+  
+endfunction
